@@ -27,7 +27,7 @@ public class LevelManager
 		this.currentState = state;
 	}
 	
-	public void getCurrentState()
+	public int getCurrentState()
 	{
 		return this.currentState;
 	}

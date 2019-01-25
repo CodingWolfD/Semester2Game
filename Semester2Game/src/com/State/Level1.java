@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import com.Entity.Player;
 import com.Main.LevelPanel;
 
 public class Level1 
@@ -13,7 +14,7 @@ public class Level1
 	public Level1(LevelManager m)
 	{
 		super(lm);
-		p = new Player()
+		p = new Player();
 	}
 	
 	private void init()
