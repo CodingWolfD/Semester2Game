@@ -40,7 +40,7 @@ public class Game
 	
 	public static void main(String[] args)
 	{
-		Game g = new Game()
+		Game g = new Game();
 	}
 	
 }
