@@ -1,5 +1,7 @@
 package com.State;
 
+import java.awt.Graphics2D;
+
 public class LevelManager 
 {
 	private LevelState[] gameStateList;
@@ -38,5 +40,30 @@ public class LevelManager
 	public void goToState(int state)
 	{
 		this.currentState = state;
+	}
+	
+	public void nextState()
+	{
+		this.currentState++;
+	}
+	
+	public void previousState()
+	{
+		this.currentState--;
+	}
+	
+	public void updateScreenBuffer(Graphics2D g)
+	{
+		gameStateList[currentState].draw(g);
+	}
+	
+	public void keyPressed(int keyCode)
+	{
+		gameStateList[currentState].keyPressed(keyCode);
+	}
+	
+	public void keyReleased(int keyCode)
+	{
+		gameStateList[currentState].keyReleased(keyCode);
 	}
 }
