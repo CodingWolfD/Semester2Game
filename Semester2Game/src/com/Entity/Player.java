@@ -3,6 +3,8 @@ package com.Entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import com.Tilemap.TileMapManager;
+
 public class Player extends GameObject
 {
 	private int health;
@@ -18,9 +20,9 @@ public class Player extends GameObject
 	private boolean MOVE_RIGHT;
 	private boolean STANDING;
 	
-	public Player(String spriteFile)
+	public Player(String spriteFile, TileMapManager tmm)
 	{
-		super(spriteFile);
+		super(spriteFile, tmm);
 		
 		x = 100;
 		y = 100;
@@ -49,6 +51,47 @@ public class Player extends GameObject
 		
 		x = checkX;
 		y = checkY;
+	
+		checkTileMapCollision(checkX, checkY);
+		
+		if(cTopLeft && cBottomLeft)
+		{
+			checkX = x;
+		}
+		
+		if(cBottomRight && cTopRight)
+		{
+			checkX = x;
+		}
+		
+		if(cTopRight || cTopLeft)
+		{
+			checkY = y;
+		}
+		
+		if(cBottomLeft || cBottomRight)
+		{
+			checkY = y;
+			FALLING = false;
+		}
+		else
+		{
+			FALLING = true;
+		}
+		
+		if(FALLING)
+		{
+			gravity = 0.2f;
+		}
+		else
+		{
+			gravity = 0;
+		}
+		
+		x = checkX;
+		y = checkY;
+		
+		y += gravity;
 	}
 	
 	public void draw(Graphics2D g)
@@ -83,5 +126,37 @@ public class Player extends GameObject
 			STANDING = true;
 			dx = 0;
 		}
+	}
+	
+	public void checkEnemyCollision(Enemy[] enemies)
+	{
+		for(Enemy current: enemies)
+		{
+			if(intersects(current))
+			{
+				
+			}
+		}
+	}
+	
+	public void checkCollectableCollision(Collectable[] collectables)
+	{
+		for(Collectable current: collectables)
+		{
+			if(intersects(current))
+			{
+				
+			}
+		}
+	}
+	
+	public double getX()
+	{
+		return x;
+	}
+	
+	public double getY()
+	{
+		return y;
 	}
 }

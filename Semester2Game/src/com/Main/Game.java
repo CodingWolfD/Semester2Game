@@ -42,5 +42,4 @@ public class Game
 	{
 		Game g = new Game();
 	}
-	
 }

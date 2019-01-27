@@ -7,6 +7,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.Tilemap.Tile;
+import com.Tilemap.TileMapManager;
+
 public class GameObject 
 {
 	protected double x;
@@ -14,11 +17,19 @@ public class GameObject
 	
 	protected BufferedImage sprite;
 	
+	protected static TileMapManager tmm;
+
 	protected int cWidth;
-	protected int cHeight;
+	protected int cHeight;	
 	
-	public GameObject(String fileName)
+	protected boolean cTopLeft;
+	protected boolean cBottomRight;
+	protected boolean cTopRight;
+	protected boolean cBottomLeft;
+	
+	public GameObject(String fileName, TileMapManager tmm)
 	{
+		this.tmm = tmm;
 		loadSprite(fileName);
 	}
 	
@@ -58,5 +69,36 @@ public class GameObject
 		Rectangle r2 = obj.getBounds();
 		
 		return r1.intersects(r2);
+	}
+	
+	public void checkTileMapCollision(double x, double y)
+	{
+		double currXpos;
+		double currYpos;
+		Tile tile;
+		
+		// TOP LEFT
+		currXpos = x;
+		currYpos = y;
+		tile = tmm.getTileAt(currXpos, currYpos);
+		cTopLeft = tile.getType() == Tile.TYPE_BLOCKED;
+		
+		// TOP RIGHT
+		currYpos = y;
+		currXpos = x + cWidth;
+		tile = tmm.getTileAt(currXpos, currYpos);
+		cTopRight = tile.getType() == Tile.TYPE_BLOCKED;
+		
+		// BOTTOM LEFT
+		currXpos = x;
+		currYpos = y + cHeight;
+		tile = tmm.getTileAt(currXpos, currYpos);
+		cBottomLeft = tile.getType() == Tile.TYPE_BLOCKED;
+		
+		// BOTTOM RIGHT
+		currXpos = x + cWidth;
+		currYpos = y + cHeight;
+		tile = tmm.getTileAt(currXpos, currYpos);
+		cBottomRight = tile.getType() == Tile.TYPE_BLOCKED;
 	}
 }

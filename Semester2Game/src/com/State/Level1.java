@@ -4,17 +4,53 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import com.Entity.Collectable;
+import com.Entity.Enemy;
 import com.Entity.Player;
 import com.Main.LevelPanel;
+import com.Tilemap.TileMapManager;
 
-public class Level1 
+public class Level1 extends LevelState
 {
 	private Player p;
+	private boolean win;
 	
-	public Level1(LevelManager m)
+	private Enemy[] enemies;
+	private Collectable[] collectables;
+	
+	private TileMapManager tmm;
+	
+	public Level1(LevelManager lm)
 	{
 		super(lm);
-		p = new Player();
+		tmm = new TileMapManager();
+		p = new Player("", tmm);
+		
+		win = false;
+		
+		init();
+		initEnemies();
+		initCollectables();
+	}
+	
+	private void initEnemies()
+	{
+		enemies = new Enemy[5];
+		
+		for(int i = 0; i < enemies.length; i++)
+		{
+			enemies[i] = new Enemy("/Images/enemy.png");
+		}
+	}
+	
+	private void initCollectables()
+	{
+		collectables = new Collectable[5];
+		
+		for(int i = 0; i < collectables.length; i++)
+		{
+			collectables[i] = new Collectable("/Images/collectable.png");
+		}
 	}
 	
 	private void init()
@@ -51,11 +87,18 @@ public class Level1
 	public void update()
 	{
 		p.update();
+		p.checkEnemyCollision(enemies);
+		p.checkCollectableCollision(collectables);
+		
+		tmm.setCameraPosition((int) LevelPanel.PANEL_WIDTH / 2 - p.getX(), (int) LevelPanel.PANEL_WIDTH / 2 - p.getY());
 	}
 	
 	public void draw(Graphics2D g)
 	{
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, LevelPanel.PANEL_WIDTH, LevelPanel.PANEL_HEIGHT);
+		
+		tmm.draw(g);
+		p.draw(g);
 	}
 }

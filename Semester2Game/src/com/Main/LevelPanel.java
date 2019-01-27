@@ -39,10 +39,11 @@ public class LevelPanel extends JPanel implements KeyListener
 	
 	public void startGame()
 	{
-		initGraphics();
+		//initGraphics();
 		
 		gameLoop = new Thread()
 		{
+			@Override
 			public void run()
 			{
 				gameLoop();
@@ -54,7 +55,7 @@ public class LevelPanel extends JPanel implements KeyListener
 	
 	private void gameLoop()
 	{
-		double startTime = 0;
+		double startTime;
 		double finishTime;
 		double deltaT;
 		double waitT;
@@ -62,6 +63,8 @@ public class LevelPanel extends JPanel implements KeyListener
 		
 		while(isRunning)
 		{
+			startTime = System.nanoTime();
+			
 			if(!isPaused)
 			{
 				lm.update();
@@ -90,5 +93,23 @@ public class LevelPanel extends JPanel implements KeyListener
 				}
 			}
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
