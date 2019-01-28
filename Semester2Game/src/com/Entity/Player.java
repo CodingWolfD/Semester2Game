@@ -94,10 +94,12 @@ public class Player extends GameObject
 		y += gravity;
 	}
 	
+	@Override
 	public void draw(Graphics2D g)
 	{
-		g.setColor(Color.YELLOW);
-		g.drawRect((int) x, (int) y, (int) 10, (int) 10);
+		super.draw(g);
+		//g.setColor(Color.YELLOW);
+		g.drawImage(sprite, (int)(x + tmm.getCameraX()), (int) (y + tmm.getCameraY()), cWidth, cHeight, null);
 	}
 	
 	public void moveLeft(boolean move)

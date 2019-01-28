@@ -17,6 +17,8 @@ public class Game
 		initGame();
 		initComponents();
 		initWindow();
+		
+		lp.startGame();
 	}
 	
 	private void initGame()

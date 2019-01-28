@@ -4,7 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import com.State.LevelManager;
@@ -28,9 +30,9 @@ public class LevelPanel extends JPanel implements KeyListener
 	private LevelManager lm;
 	
 	public LevelPanel()
-	{
+	{		
 		super();
-		
+			
 		isRunning = true;
 		isPaused = false;
 		
@@ -39,7 +41,7 @@ public class LevelPanel extends JPanel implements KeyListener
 	
 	public void startGame()
 	{
-		//initGraphics();
+		initGraphics();
 		
 		gameLoop = new Thread()
 		{
@@ -76,7 +78,7 @@ public class LevelPanel extends JPanel implements KeyListener
 				
 				deltaT = finishTime - startTime;
 				
-				waitT = TARGET_UPDATE_TIME - deltaT / 1000000;
+				waitT = TARGET_UPDATE_TIME - deltaT / 100000000;
 				
 				if(waitT < 5)
 				{
@@ -93,6 +95,11 @@ public class LevelPanel extends JPanel implements KeyListener
 				}
 			}
 		}
+	}
+	
+	private void initGraphics()
+	{
+		
 	}
 
 	@Override

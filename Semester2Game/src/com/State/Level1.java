@@ -24,7 +24,7 @@ public class Level1 extends LevelState
 	{
 		super(lm);
 		tmm = new TileMapManager();
-		p = new Player("", tmm);
+		p = new Player("/images/player.png", tmm);
 		
 		win = false;
 		
@@ -39,7 +39,7 @@ public class Level1 extends LevelState
 		
 		for(int i = 0; i < enemies.length; i++)
 		{
-			enemies[i] = new Enemy("/Images/enemy.png");
+			enemies[i] = new Enemy("/images/enemy.png");
 		}
 	}
 	
@@ -49,13 +49,13 @@ public class Level1 extends LevelState
 		
 		for(int i = 0; i < collectables.length; i++)
 		{
-			collectables[i] = new Collectable("/Images/collectable.png");
+			collectables[i] = new Collectable("/images/collectable.png");
 		}
 	}
 	
 	private void init()
 	{
-		
+
 	}
 	
 	public void keyPressed(int keyCode)
@@ -87,12 +87,13 @@ public class Level1 extends LevelState
 	public void update()
 	{
 		p.update();
-		p.checkEnemyCollision(enemies);
-		p.checkCollectableCollision(collectables);
+		//p.checkEnemyCollision(enemies);
+		//p.checkCollectableCollision(collectables);
 		
 		tmm.setCameraPosition((int) LevelPanel.PANEL_WIDTH / 2 - p.getX(), (int) LevelPanel.PANEL_WIDTH / 2 - p.getY());
 	}
 	
+	@Override
 	public void draw(Graphics2D g)
 	{
 		g.setColor(Color.BLUE);

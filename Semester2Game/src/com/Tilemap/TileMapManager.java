@@ -79,9 +79,9 @@ public class TileMapManager
 		
 		try
 		{
-			tiles[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/Images/col1.png")), Tile.TYPE_NORMAL);
-			tiles[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("Images/col2.png")), Tile.TYPE_BLOCKED);
-			tiles[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("Images/col3.png")), Tile.TYPE_BLOCKED);
+			tiles[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images/col1.png")), Tile.TYPE_NORMAL);
+			tiles[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images/col2.png")), Tile.TYPE_BLOCKED);
+			tiles[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images/col3.png")), Tile.TYPE_BLOCKED);
 		}
 		catch(java.io.IOException ex)
 		{
