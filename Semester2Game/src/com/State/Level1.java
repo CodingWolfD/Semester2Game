@@ -96,9 +96,10 @@ public class Level1 extends LevelState
 	@Override
 	public void draw(Graphics2D g)
 	{
+		System.out.println("Drawing Game Items");
 		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, LevelPanel.PANEL_WIDTH, LevelPanel.PANEL_HEIGHT);
-		
+	    g.fillRect(0, 0, LevelPanel.PANEL_WIDTH, LevelPanel.PANEL_HEIGHT);
+	
 		tmm.draw(g);
 		p.draw(g);
 	}

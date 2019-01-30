@@ -37,6 +37,15 @@ public class LevelPanel extends JPanel implements KeyListener
 		isPaused = false;
 		
 		lm = new LevelManager();
+		
+		try
+		{
+			screenBuffer = ImageIO.read(getClass().getResourceAsStream("/images/screenBuffer.png"));
+		}
+		catch(IOException ex)
+		{
+			System.err.print("Error: Couldnt find screen buffer");
+		}
 	}
 	
 	public void startGame()
@@ -99,7 +108,7 @@ public class LevelPanel extends JPanel implements KeyListener
 	
 	private void initGraphics()
 	{
-		
+		lm.setCurrentState(1);
 	}
 
 	@Override

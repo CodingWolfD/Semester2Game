@@ -98,7 +98,7 @@ public class Player extends GameObject
 	public void draw(Graphics2D g)
 	{
 		super.draw(g);
-		//g.setColor(Color.YELLOW);
+		g.setColor(Color.YELLOW);
 		g.drawImage(sprite, (int)(x + tmm.getCameraX()), (int) (y + tmm.getCameraY()), cWidth, cHeight, null);
 	}
 	
