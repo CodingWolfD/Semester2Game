@@ -70,7 +70,6 @@ public class TileMapManager
 		
 		//loadMap();
 		loadTiles();
-		
 	}
 	
 	private void loadTiles()

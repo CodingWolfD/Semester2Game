@@ -7,8 +7,13 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JPanel;
 
+/**
+ *
+ * @author James
+ */
 public class LevelPanel extends JPanel implements KeyListener
 {
     // Refactored - changed name to reflect that this is the size of the panel
@@ -89,6 +94,10 @@ public class LevelPanel extends JPanel implements KeyListener
         gameLoop.start();
     }
     
+    /**
+     * This method provides the main game loop - the game continues while it is running
+     * 
+     */
     private void gameLoop()
     {
         double startTime;
@@ -109,28 +118,20 @@ public class LevelPanel extends JPanel implements KeyListener
                 // Level update and redraw
                 lm.update();
                 lm.updateScreenBuffer(graphics);
-                
                 // Repaint the screen
                 repaint();
-                
                 //Record the end of  the update process
                 finishTime = System.nanoTime();
-                
                 //Find the amount of time taken
                 deltaT = finishTime - startTime;
-                
                 // frames per second calculation - 
                 drawTime = (deltaT/1000000);
-                System.out.println("Frame drawing time: " + Math.round(drawTime)); 
-                
+                System.out.println("Frame drawing time: " + Math.round(drawTime));                           
                 //The Thread wait time is the Target time - the deltaT converted to milliseconds
                 waitT = TARGET_UPDATE_TIME - deltaT / 1000000;
-                
                 // If we have a very small wait time, then set to 5 as a minimum
                 if(waitT < 5)
-                {                    
-                	waitT = 5;               
-                }
+                    waitT = 5;               
                 
                 System.out.println("Wait: " + waitT);
                 
@@ -140,8 +141,7 @@ public class LevelPanel extends JPanel implements KeyListener
                 try
                 {
                     Thread.sleep((long)waitT);
-                }
-                catch(InterruptedException e)
+                }catch(InterruptedException e)
                 { 
                     e.printStackTrace();
                 }
