@@ -1,27 +1,27 @@
 package com.Entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
-public class Collectable extends GameObject
-{
-	private double gravity;
+public class Bullet extends GameObject
+{	
+	private double x;
+	private double y;
 	
-	private double dy;
 	private double dx;
+	private double dy;
 	
-	private boolean FALLING;
-		
-	public Collectable(String fileName)
+	private double speed;
+			
+	public Bullet(String fileName)
 	{
 		super(fileName, tmm);
 		
-		x = 200;
-		y = 10;
-		dx = 0;
-		dy = 0;
+		x = 0;
+		y = 0;
 		
-		FALLING = true;
-	}	
+		speed = 3;
+	}
 	
 	public void update()
 	{
@@ -30,15 +30,6 @@ public class Collectable extends GameObject
 		
 		checkX = x + dx;
 		checkY = y + dy;
-		
-		if(FALLING)
-		{
-			gravity = 2;
-		}
-		else
-		{
-			gravity = 0;
-		}
 		
 		x = checkX;
 		y = checkY;
@@ -63,31 +54,42 @@ public class Collectable extends GameObject
 		if(cBottomLeft || cBottomRight)
 		{
 			checkY = y;
-			FALLING = false;
-		}
-		else
-		{
-			FALLING = true;
-		}
-		
-		if(FALLING)
-		{   
-			gravity = 2f;
-		}
-		else
-		{
-			gravity = 0;
 		}
 		
 		x = checkX;
 		y = checkY;
 		
-		y += gravity;
+		x += speed;
 	}
 	
 	public void draw(Graphics2D g)
 	{
-		super.draw(g);
 		g.drawImage(sprite, (int) x, (int) y, cWidth, cHeight, null);
+	}
+	
+	public Rectangle getBounds()
+	{
+		Rectangle r = new Rectangle((int) x, (int) y);
+		return r;
+	}
+	
+	public void setX(double newX)
+	{
+		x = newX;
+	}
+	
+	public double getX()
+	{
+		return x;
+	}
+	
+	public void setY(double newY)
+	{
+		y = newY;
+	}
+	
+	public double getY()
+	{
+		return y;
 	}
 }

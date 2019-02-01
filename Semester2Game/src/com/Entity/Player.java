@@ -16,13 +16,19 @@ public class Player extends GameObject
 	private double dy;
 	
 	private boolean FALLING;
+	private boolean JUMPING;
 	private boolean MOVE_LEFT;
 	private boolean MOVE_RIGHT;
 	private boolean STANDING;
+	private boolean SHOOT;
+	
+	private Bullet bullet;
 	
 	public Player(String spriteFile, TileMapManager tmm)
 	{
 		super(spriteFile, tmm);
+			
+		bullet = new Bullet("/images/bullet.png");
 		
 		x = 100;
 		y = 100;
@@ -42,7 +48,7 @@ public class Player extends GameObject
 		
 		if(FALLING)
 		{
-			gravity = 0.2;
+			gravity = 2;
 		}
 		else
 		{
@@ -80,26 +86,44 @@ public class Player extends GameObject
 		}
 		
 		if(FALLING)
-		{
-			gravity = 0.2f;
+		{   
+			gravity = 2f;
 		}
 		else
 		{
 			gravity = 0;
 		}
 		
+		if(JUMPING && !FALLING)
+		{
+			gravity -= 80;
+		}
+		else
+		{
+			FALLING = true;
+		}
+		
 		x = checkX;
 		y = checkY;
 		
 		y += gravity;
+		
+		if(SHOOT)
+		{
+			bullet.update();
+		}
 	}
 	
 	@Override
 	public void draw(Graphics2D g)
 	{
 		super.draw(g);
-		//g.setColor(Color.YELLOW);
 		g.drawImage(sprite, (int)(x + tmm.getCameraX()), (int) (y + tmm.getCameraY()), cWidth, cHeight, null);
+		
+		if(SHOOT)
+		{
+			bullet.draw(g);
+		}
 	}
 	
 	public void moveLeft(boolean move)
@@ -127,6 +151,26 @@ public class Player extends GameObject
 		{
 			STANDING = true;
 			dx = 0;
+		}
+	}
+	
+	public void shoot(boolean shoot)
+	{		
+		bullet.setX(x);
+		bullet.setY(y);
+		
+		SHOOT = true;
+	}
+	
+	public void jump(boolean jump)
+	{
+		if(jump)
+		{
+			JUMPING = true;
+   		}
+		else
+		{
+			JUMPING = false;
 		}
 	}
 	

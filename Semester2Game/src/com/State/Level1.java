@@ -3,7 +3,10 @@ package com.State;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.Entity.Bullet;
 import com.Entity.Collectable;
 import com.Entity.Enemy;
 import com.Entity.Player;
@@ -16,16 +19,17 @@ public class Level1 extends LevelState
 	private boolean win;
 	
 	private Enemy[] enemies;
+		
 	private Collectable[] collectables;
-	
+		
 	private TileMapManager tmm;
-	
+		
 	public Level1(LevelManager lm)
 	{
 		super(lm);
 		tmm = new TileMapManager();
 		p = new Player("/images/player.png", tmm);
-		
+				
 		win = false;
 		
 		init();
@@ -45,7 +49,7 @@ public class Level1 extends LevelState
 	
 	private void initCollectables()
 	{
-		collectables = new Collectable[5];
+		collectables = new Collectable[1];
 		
 		for(int i = 0; i < collectables.length; i++)
 		{
@@ -55,7 +59,7 @@ public class Level1 extends LevelState
 	
 	private void init()
 	{
-
+		
 	}
 	
 	public void keyPressed(int keyCode)
@@ -68,6 +72,16 @@ public class Level1 extends LevelState
 		if(keyCode == KeyEvent.VK_D)
 		{
 			p.moveRight(true);
+		}
+		
+		if(keyCode == KeyEvent.VK_SPACE)
+		{
+			p.jump(true);
+		}
+		
+		if(keyCode == KeyEvent.VK_R)
+		{
+			p.shoot(true);
 		}
 	}
 	
@@ -82,11 +96,32 @@ public class Level1 extends LevelState
 		{
 			p.moveRight(false);
 		}
+		
+		if(keyCode == KeyEvent.VK_SPACE)
+		{
+			p.jump(false);
+		}
+		
+		if(keyCode == KeyEvent.VK_R)
+		{
+			p.shoot(false);
+		}
 	}
 	
 	public void update()
 	{
 		p.update();
+		
+		for(int i = 0; i < collectables.length; i++)
+		{
+			collectables[i].update();
+		}
+		
+		for(int i = 0; i < enemies.length; i++)
+		{
+			enemies[i].update();
+		}
+				
 		//p.checkEnemyCollision(enemies);
 		//p.checkCollectableCollision(collectables);
 		
@@ -101,5 +136,7 @@ public class Level1 extends LevelState
 		
 		tmm.draw(g);
 		p.draw(g);
+		
+		collectables[0].draw(g);
 	}
 }
