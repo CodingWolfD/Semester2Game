@@ -8,6 +8,8 @@ import com.Tilemap.TileMapManager;
 public class Player extends GameObject
 {
 	private int health;
+	private int ammoCount;
+	private int points;
 	
 	private double xSpeed = 0.8;
 	private double gravity = 0.04;
@@ -24,16 +26,21 @@ public class Player extends GameObject
 	
 	private Bullet bullet;
 	
+	private Bullet[] bullets;
+	
 	public Player(String spriteFile, TileMapManager tmm)
 	{
 		super(spriteFile, tmm);
-			
-		bullet = new Bullet("/images/bullet.png");
-		
+					
 		x = 100;
 		y = 100;
 		dx = 0;
 		dy = 0;
+		
+		ammoCount = 5;
+		points = 0;
+		
+		bullets = new Bullet[ammoCount];
 		
 		FALLING = true;
 	}
@@ -110,7 +117,10 @@ public class Player extends GameObject
 		
 		if(SHOOT)
 		{
-			bullet.update();
+			for(int i = 0; i < bullets.length; i++)
+			{
+				bullets[i].update();
+			}
 		}
 	}
 	
@@ -125,7 +135,10 @@ public class Player extends GameObject
 		
 		if(SHOOT)
 		{
-			bullet.draw(g);
+			for(int i = 0; i < bullets.length; i++)
+			{
+				bullets[i].draw(g);
+			}
 		}
 	}
 	
@@ -159,10 +172,26 @@ public class Player extends GameObject
 	
 	public void shoot(boolean shoot)
 	{		
-		bullet.setX(x);
-		bullet.setY(y);
-		
-		SHOOT = true;
+		if(shoot)
+		{
+			if(ammoCount > 0)
+			{
+				for(int i = 0; i < ammoCount; i++)
+				{
+					Bullet newBullet = new Bullet("/images/bullet.png");
+					bullets[i] = newBullet;
+				}
+				
+				for(int i = 0; i < bullets.length; i++)
+				{
+					bullets[i].setX(x);
+					bullets[i].setY(y);
+				}
+
+				ammoCount -= 1;
+				SHOOT = true;
+			}
+		}
 	}
 	
 	public void jump(boolean jump)
@@ -194,9 +223,19 @@ public class Player extends GameObject
 		{
 			if(intersects(current))
 			{
-				
+				points += 10;
 			}
 		}
+	}
+	
+	public int getAmmoCount()
+	{
+		return ammoCount;
+	}
+	
+	public int getPoints()
+	{
+		return points;
 	}
 	
 	public double getX()

@@ -1,12 +1,10 @@
 package com.State;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.Entity.Bullet;
 import com.Entity.Collectable;
 import com.Entity.Enemy;
 import com.Entity.Player;
@@ -17,11 +15,8 @@ public class Level1 extends LevelState
 {
 	private Player p;
 	private boolean win;
-	
 	private Enemy[] enemies;
-		
 	private Collectable[] collectables;
-		
 	private TileMapManager tmm;
 		
 	public Level1(LevelManager lm)
@@ -122,8 +117,8 @@ public class Level1 extends LevelState
 			enemies[i].update();
 		}
 				
-		//p.checkEnemyCollision(enemies);
-		//p.checkCollectableCollision(collectables);
+		p.checkEnemyCollision(enemies);
+		p.checkCollectableCollision(collectables);
 		
 		tmm.setCameraPosition((int) LevelPanel.PANEL_WIDTH / 2 - p.getX(), (int) LevelPanel.PANEL_WIDTH / 2 - p.getY());
 	}
@@ -134,7 +129,12 @@ public class Level1 extends LevelState
 		System.out.println("Drawing Game Items");
 		g.setColor(Color.BLUE);
 	    g.fillRect(0, 0, LevelPanel.PANEL_WIDTH, LevelPanel.PANEL_HEIGHT);
-	
+	    
+	    g.setFont(new Font("Arial", 0, 20));
+	    g.setColor(Color.WHITE);
+	    g.drawString("Ammo: " + p.getAmmoCount(), 10, 900);
+	    g.drawString("Points: " + p.getPoints(), 10, 950);
+	    
 		tmm.draw(g);
 		p.draw(g);
 		

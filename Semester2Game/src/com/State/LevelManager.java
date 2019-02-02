@@ -15,10 +15,10 @@ public class LevelManager
 	
 	public LevelManager()
 	{
-		currentState = 1;
+		currentState = 0;
 		gameStateList = new LevelState[5];
 		
-		//gameStateList[0] = new Menu(this);
+		gameStateList[0] = new Menu(this);
 		gameStateList[1] = new Level1(this);
 	}
 	
