@@ -20,7 +20,7 @@ public class Bullet extends GameObject
 		x = 0;
 		y = 0;
 		
-		speed = 3;
+		speed = 1;
 	}
 	
 	public void update()
