@@ -39,21 +39,25 @@ public class Bullet extends GameObject
 		if(cTopLeft && cBottomLeft)
 		{
 			checkX = x;
+			this.sprite = null;
 		}
 		
 		if(cBottomRight && cTopRight)
 		{
 			checkX = x;
+			this.sprite = null;
 		}
 		
 		if(cTopRight || cTopLeft)
 		{
 			checkY = y;
+			this.sprite = null;
 		}
 		
 		if(cBottomLeft || cBottomRight)
 		{
 			checkY = y;
+			this.sprite = null;
 		}
 		
 		x = checkX;
@@ -65,12 +69,6 @@ public class Bullet extends GameObject
 	public void draw(Graphics2D g)
 	{
 		g.drawImage(sprite, (int) x, (int) y, cWidth, cHeight, null);
-	}
-	
-	public Rectangle getBounds()
-	{
-		Rectangle r = new Rectangle((int) x, (int) y);
-		return r;
 	}
 	
 	public void setX(double newX)
