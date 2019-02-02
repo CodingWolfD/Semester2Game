@@ -132,8 +132,9 @@ public class Level1 extends LevelState
 	    
 	    g.setFont(new Font("Arial", 0, 20));
 	    g.setColor(Color.WHITE);
+	    g.drawString("Health: " + p.getHealth(), 10, 100);
 	    g.drawString("Ammo: " + p.getAmmoCount(), 10, 900);
-	    g.drawString("Points: " + p.getPoints(), 10, 950);
+	    g.drawString("Points: " + p.getPoints(), 10, 920);
 	    
 		tmm.draw(g);
 		p.draw(g);

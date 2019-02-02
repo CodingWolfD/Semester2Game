@@ -11,7 +11,7 @@ public class Player extends GameObject
 	private int ammoCount;
 	private int points;
 	
-	private double xSpeed = 0.8;
+	private double xSpeed = 2;
 	private double gravity = 0.04;
 	
 	private double dx;
@@ -36,6 +36,8 @@ public class Player extends GameObject
 		y = 100;
 		dx = 0;
 		dy = 0;
+		
+		health = 100;
 		
 		ammoCount = 5;
 		points = 0;
@@ -103,7 +105,7 @@ public class Player extends GameObject
 		
 		if(JUMPING && !FALLING)
 		{
-			gravity -= 80;
+			gravity -= 100;
 		}
 		else
 		{
@@ -154,6 +156,11 @@ public class Player extends GameObject
 			STANDING = true;
 			dx = 0;
 		}
+		
+		if(dx < -xSpeed)
+		{
+			dx = -xSpeed;
+		}
 	}
 	
 	public void moveRight(boolean move)
@@ -162,6 +169,11 @@ public class Player extends GameObject
 		{
 			MOVE_RIGHT = true;
 			dx += xSpeed;
+			
+			if(dx > xSpeed)
+			{
+				dx = xSpeed;
+			}
 		}
 		else
 		{
@@ -223,6 +235,9 @@ public class Player extends GameObject
 		{
 			if(intersects(current))
 			{
+				current.cWidth = 0;
+				current.cHeight = 0;
+				current.sprite = null;
 				points += 10;
 			}
 		}
@@ -231,6 +246,11 @@ public class Player extends GameObject
 	public int getAmmoCount()
 	{
 		return ammoCount;
+	}
+	
+	public int getHealth()
+	{
+		return health;
 	}
 	
 	public int getPoints()
