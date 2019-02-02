@@ -23,6 +23,7 @@ public class Level1 extends LevelState
 	{
 		super(lm);
 		tmm = new TileMapManager();
+		
 		p = new Player("/images/player.png", tmm);
 				
 		win = false;
@@ -106,17 +107,18 @@ public class Level1 extends LevelState
 	public void update()
 	{
 		p.update();
-		
+				
 		for(int i = 0; i < collectables.length; i++)
 		{
 			collectables[i].update();
 		}
 		
-		for(int i = 0; i < enemies.length; i++)
-		{
-			enemies[i].update();
-		}
-				
+//		
+//		for(int i = 0; i < enemies.length; i++)
+//		{
+//			enemies[i].update();
+//		}
+//				
 		p.checkEnemyCollision(enemies);
 		p.checkCollectableCollision(collectables);
 		
@@ -139,6 +141,7 @@ public class Level1 extends LevelState
 		tmm.draw(g);
 		p.draw(g);
 		
+		//enemies[0].draw(g);
 		collectables[0].draw(g);
 	}
 }

@@ -190,8 +190,7 @@ public class Player extends GameObject
 			{
 				for(int i = 0; i < ammoCount; i++)
 				{
-					Bullet newBullet = new Bullet("/images/bullet.png");
-					bullets[i] = newBullet;
+					bullets[i] = new Bullet("/images/bullet.png");
 				}
 				
 				for(int i = 0; i < bullets.length; i++)
@@ -238,6 +237,7 @@ public class Player extends GameObject
 				current.cWidth = 0;
 				current.cHeight = 0;
 				current.sprite = null;
+
 				points += 10;
 			}
 		}
