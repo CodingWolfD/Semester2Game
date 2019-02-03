@@ -130,10 +130,6 @@ public class Player extends GameObject
 	public void draw(Graphics2D g)
 	{
 		super.draw(g);
-
-		g.setColor(Color.YELLOW);
-		
-		g.drawImage(sprite, (int)(x + tmm.getCameraX()), (int) (y + tmm.getCameraY()), cWidth, cHeight, null);
 		
 		if(SHOOT)
 		{
@@ -142,6 +138,8 @@ public class Player extends GameObject
 				bullets[i].draw(g);
 			}
 		}
+		
+		g.drawImage(sprite, (int)(x + tmm.getCameraX()), (int) (y + tmm.getCameraY()), cWidth, cHeight, null);
 	}
 	
 	public void moveLeft(boolean move)
@@ -191,12 +189,8 @@ public class Player extends GameObject
 				for(int i = 0; i < ammoCount; i++)
 				{
 					bullets[i] = new Bullet("/images/bullet.png");
-				}
-				
-				for(int i = 0; i < bullets.length; i++)
-				{
 					bullets[i].setX(x);
-					bullets[i].setY(y);
+					bullets[i].setY(y + cHeight / 2);
 				}
 
 				ammoCount -= 1;

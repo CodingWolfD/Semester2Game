@@ -22,15 +22,17 @@ public class Level1 extends LevelState
 	public Level1(LevelManager lm)
 	{
 		super(lm);
+		init();
+	}
+	
+	private void init()
+	{		
 		tmm = new TileMapManager();
-		
 		p = new Player("/images/player.png", tmm);
-				
 		win = false;
 		
-		init();
 		initEnemies();
-		initCollectables();
+		initCollectables();	
 	}
 	
 	private void initEnemies()
@@ -51,11 +53,6 @@ public class Level1 extends LevelState
 		{
 			collectables[i] = new Collectable("/images/collectable.png");
 		}
-	}
-	
-	private void init()
-	{
-		
 	}
 	
 	public void keyPressed(int keyCode)

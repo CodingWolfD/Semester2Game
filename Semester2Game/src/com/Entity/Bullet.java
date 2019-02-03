@@ -20,7 +20,7 @@ public class Bullet extends GameObject
 		x = 0;
 		y = 0;
 		
-		speed = 1;
+		speed = 3;
 	}
 	
 	public void update()
@@ -39,25 +39,21 @@ public class Bullet extends GameObject
 		if(cTopLeft && cBottomLeft)
 		{
 			checkX = x;
-			this.sprite = null;
 		}
 		
 		if(cBottomRight && cTopRight)
 		{
 			checkX = x;
-			this.sprite = null;
 		}
 		
 		if(cTopRight || cTopLeft)
 		{
 			checkY = y;
-			this.sprite = null;
 		}
 		
 		if(cBottomLeft || cBottomRight)
 		{
 			checkY = y;
-			this.sprite = null;
 		}
 		
 		x = checkX;
