@@ -7,13 +7,14 @@ import java.awt.Graphics2D;
 import javax.imageio.ImageIO;
 
 import com.Main.LevelPanel;
+import com.State.LevelManager;
 
 public class TileMapManager
 {
 	private final int TILE_SIZE = 64;
 	private Tile[] tiles;
 	
-	private final int[][] map;
+	private int[][] map;
 
 	private final int[][] map1 =
 	{
@@ -66,10 +67,10 @@ public class TileMapManager
 	
 	public TileMapManager()
 	{
-		map = map1;
-		
 		int width;
 		int height;
+		
+		loadMap();
 		
 		numberOfRows = map.length;
 		numberOfColums = map[0].length;
@@ -89,13 +90,12 @@ public class TileMapManager
 		cameraX = 0;
 		cameraY = 0;
 		
-		loadMap();
 		loadTiles();
 	}
 	
 	private void loadMap()
 	{
-		
+		map = map1;
 	}
 	
 	private void loadTiles()

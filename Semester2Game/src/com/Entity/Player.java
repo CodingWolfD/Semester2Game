@@ -1,6 +1,5 @@
 package com.Entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.Tilemap.TileMapManager;
@@ -39,7 +38,7 @@ public class Player extends GameObject
 		
 		health = 100;
 		
-		ammoCount = 5;
+		ammoCount = 10;
 		points = 0;
 		
 		bullets = new Bullet[ammoCount];

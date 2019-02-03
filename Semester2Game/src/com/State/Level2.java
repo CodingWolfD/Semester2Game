@@ -8,22 +8,18 @@ import java.awt.event.KeyEvent;
 import com.Entity.Collectable;
 import com.Entity.Enemy;
 import com.Entity.Player;
-import com.Entity.Portal;
 import com.Main.LevelPanel;
 import com.Tilemap.TileMapManager;
 
-public class Level1 extends LevelState
+public class Level2 extends LevelState
 {
 	private Player p;
 	private boolean win;
-	
-	private Portal portal;
-	
 	private Enemy[] enemies;
 	private Collectable[] collectables;
 	private TileMapManager tmm;
 		
-	public Level1(LevelManager lm)
+	public Level2(LevelManager lm)
 	{
 		super(lm);
 		init();
@@ -33,9 +29,6 @@ public class Level1 extends LevelState
 	{		
 		tmm = new TileMapManager();
 		p = new Player("/images/player.png", tmm);
-		
-		portal = new Portal("/images/portal.png");
-		
 		win = false;
 		
 		initEnemies();
@@ -126,11 +119,6 @@ public class Level1 extends LevelState
 		p.checkEnemyCollision(enemies);
 		p.checkCollectableCollision(collectables);
 		
-		if(p.intersects(portal))
-		{
-			lm.setCurrentState(2);
-		}
-		
 		tmm.setCameraPosition((int) LevelPanel.PANEL_WIDTH / 2 - p.getX(), (int) LevelPanel.PANEL_WIDTH / 2 - p.getY());
 	}
 	
@@ -149,7 +137,6 @@ public class Level1 extends LevelState
 	    
 		tmm.draw(g);
 		p.draw(g);
-		portal.draw(g);
 		
 		//enemies[0].draw(g);
 		collectables[0].draw(g);
