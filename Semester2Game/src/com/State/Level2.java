@@ -30,7 +30,7 @@ public class Level2 extends LevelState
 		tmm = new TileMapManager();
 		p = new Player("/images/player.png", tmm);
 		win = false;
-		
+				
 		initEnemies();
 		initCollectables();	
 	}

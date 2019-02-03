@@ -33,7 +33,7 @@ public class Level1 extends LevelState
 	{		
 		tmm = new TileMapManager();
 		p = new Player("/images/player.png", tmm);
-		
+				
 		portal = new Portal("/images/portal.png");
 		
 		win = false;
