@@ -15,10 +15,8 @@ import com.Tilemap.TileMapManager;
 public class Level1 extends LevelState
 {
 	private Player p;
-	private boolean win;
 	
 	private Portal portal;
-	
 	private Enemy[] enemies;
 	private Collectable[] collectables;
 	private TileMapManager tmm;
@@ -35,8 +33,6 @@ public class Level1 extends LevelState
 		p = new Player("/images/player.png", tmm);
 				
 		portal = new Portal("/images/portal.png");
-		
-		win = false;
 		
 		initEnemies();
 		initCollectables();	

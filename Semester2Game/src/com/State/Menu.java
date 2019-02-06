@@ -14,7 +14,8 @@ import com.Main.LevelPanel;
 public class Menu extends LevelState
 {		
 	private BufferedImage titleImage;
-	
+	private BufferedImage backgroundImage;
+
 	public Menu(LevelManager lm)
 	{
 		super(lm);
@@ -31,6 +32,7 @@ public class Menu extends LevelState
 		try
 		{
 			titleImage = ImageIO.read(getClass().getResourceAsStream("/images/User_Interface/Bob's_Journey_Title.png"));
+			backgroundImage = ImageIO.read(getClass().getResourceAsStream("/images/User_Interface/Menu_Screen.png"));
 		}
 		catch(IOException e)
 		{
@@ -65,18 +67,17 @@ public class Menu extends LevelState
 	public void draw(Graphics2D g)
 	{
 		System.out.println("Drawing Game Items");
-		g.setColor(Color.BLUE);
-	    g.fillRect(0, 0, LevelPanel.PANEL_WIDTH, LevelPanel.PANEL_HEIGHT);
-	    
+		
+	    g.drawImage(backgroundImage, 0, 0, 1050, 790, null);
 	    g.drawImage(titleImage, 150, 100, 800, 100, null);
+
+	    g.setColor(Color.WHITE);
+	    g.setFont(new Font("Arial", 0, 20));
+	    g.drawString("Press [ENTER] to play", 420, 500);
 	    
 	    g.setColor(Color.WHITE);
 	    g.setFont(new Font("Arial", 0, 20));
-	    g.drawString("Press [ENTER] to play", 450, 900);
-	    
-	    g.setColor(Color.WHITE);
-	    g.setFont(new Font("Arial", 0, 20));
-	    g.drawString("Original Framework By: James Oliver", 730, 970);
-	    g.drawString("Adapted By Daniel Martin", 770, 950);
+	    g.drawString("Original Framework By: James Oliver", 650, 690);
+	    g.drawString("Adapted By Daniel Martin", 650, 710);
 	}
 }

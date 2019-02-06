@@ -23,12 +23,10 @@ public class LevelPanel extends JPanel implements KeyListener
     private final double FPS = 60; // Number of frames per second we want to generate
     private final double TARGET_UPDATE_TIME = 1000/FPS; // Number of milliseconds to elapse between updates
   
-    
     private BufferedImage screenBuffer; // Off screen image - draw into this and copy to the screen
     private Graphics2D graphics; // Graphics context for drawing into the off screen image
     private Thread gameLoop = null; // Thread - this allows us to run the game level in a separate thread
         
-    
     //Game States
     private boolean isRunning;
     private boolean isPaused;
@@ -185,8 +183,7 @@ public class LevelPanel extends JPanel implements KeyListener
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        
-        g.drawImage(screenBuffer,0,0, PANEL_WIDTH, PANEL_HEIGHT, null );
+        g.drawImage(screenBuffer, 0, 0, PANEL_WIDTH, PANEL_HEIGHT, null );
     }
     
     @Override

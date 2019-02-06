@@ -21,7 +21,7 @@ public class Level2 extends LevelState
 		
 	public Level2(LevelManager lm)
 	{
-		super(lm);
+		super(lm);	
 		init();
 	}
 	

@@ -4,8 +4,8 @@ import javax.swing.JFrame;
 
 public class Game
 {
-	public static final int WINDOW_WIDTH = 1100;
-	public static final int WINDOW_HEIGHT = 1024;
+	public static final int WINDOW_WIDTH = 1020;
+	public static final int WINDOW_HEIGHT = 800;
 	
 	private static final String TITLE = "New and Improved Game";
 	
@@ -36,6 +36,7 @@ public class Game
 	{
 		mainWindow.setTitle(TITLE);
 		mainWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		mainWindow.setResizable(false);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setVisible(true);
 	}
