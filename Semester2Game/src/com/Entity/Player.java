@@ -16,21 +16,27 @@ public class Player extends GameObject
 	private double dx;
 	private double dy;
 	
+	private int countDown = 0;
+	
 	private boolean FALLING;
 	private boolean JUMPING;
 	private boolean MOVE_LEFT;
 	private boolean MOVE_RIGHT;
 	private boolean STANDING;
 	private boolean SHOOT;
+	private boolean ATTACK;
+	private boolean BLOCKED_X;
+	private boolean BLOCKED_Y;
 	
 	private Bullet bullet;
 	
 	private Bullet[] bullets;
 	
-	public Player(String spriteFile, TileMapManager tmm)
+	public Player(String spriteFile, TileMapManager tm)
 	{
-		super(spriteFile, tmm);
-					
+		super(tm);	
+		tmm = tm;
+		
 		x = 100;
 		y = 100;
 		dx = 0;

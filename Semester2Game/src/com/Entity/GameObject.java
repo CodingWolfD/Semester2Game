@@ -3,6 +3,7 @@ package com.Entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,6 +17,7 @@ public class GameObject
 	protected double y;
 	
 	protected BufferedImage sprite;
+	protected Sprite sprite;
 	
 	protected static TileMapManager tmm;
 
@@ -27,48 +29,17 @@ public class GameObject
 	protected boolean cTopRight;
 	protected boolean cBottomLeft;
 	
-	public GameObject(String fileName, TileMapManager tmm)
+	private BufferedImage image1 = null;
+	private BufferedImage image2 = null;
+	
+	public GameObject(TileMapManager tmm)
 	{
 		this.tmm = tmm;
-		loadSprite(fileName);
-	}
-	
-	private void loadSprite(String fileName)
-	{
-		try
-		{
-			sprite = ImageIO.read(getClass().getResourceAsStream(fileName));
-		}
-		catch(IOException ex)
-		{
-			System.err.println("Error: Unable to load Game Object sprite");
-		}
-		
-		cWidth = sprite.getWidth();
-		cHeight = sprite.getHeight();
 	}
 	
 	public void update()
 	{
 		
-	}
-	
-	public Rectangle getBounds()
-	{
-		return new Rectangle((int) x, (int) y, cWidth, cHeight);
-	}
-	
-	public void draw(Graphics2D g)
-	{
-		g.drawImage(sprite, (int) x, (int) y, null);
-	}
-	
-	public boolean intersects(GameObject obj)
-	{
-		Rectangle r1 = getBounds();
-		Rectangle r2 = obj.getBounds();
-		
-		return r1.intersects(r2);
 	}
 	
 	public void checkTileMapCollision(double x, double y)
@@ -100,5 +71,136 @@ public class GameObject
 		currYpos = y + cHeight;
 		tile = tmm.getTileAt(currXpos, currYpos);
 		cBottomRight = tile.getType() == Tile.TYPE_BLOCKED;
+	}
+	
+	public boolean intersects(GameObject obj)
+	{
+		Rectangle r1 = getBounds();
+		Rectangle r2 = obj.getBounds();
+		
+		return r1.intersects(r2);
+	}
+	
+	private void loadSprite(String fileName)
+	{
+		try
+		{
+			sprite = ImageIO.read(getClass().getResourceAsStream(fileName));
+		}
+		catch(IOException ex)
+		{
+			System.err.println("Error: Unable to load Game Object sprite");
+		}
+		
+		cWidth = sprite.getWidth();
+		cHeight = sprite.getHeight();
+	}
+	
+	public Rectangle getBounds()
+	{
+		return new Rectangle((int) x, (int) y, cWidth, cHeight);
+	}
+	
+	public void draw(Graphics2D g)
+	{
+		g.drawImage(sprite, (int) x, (int) y, null);
+	}
+	
+	public boolean collidesWith(GameObject g)
+	{
+		int x1, y1;
+		int x2, y2;
+		
+		x1 = (int) getBounds().getX() + (int) (getBounds().getY() / 2);
+		y1 = (int) getBounds().getY() + (int) (getBounds().height / 2);
+		
+		x2 = (int) g.getBounds().getX() + (int) (getBounds().getWidth() / 2);
+		y2 = (int) g.getBounds().getY() + (int) (getBounds().getHeight() / 2);
+		
+		double x1x2 = Math.abs(x2 - x1);
+		double y1y2 = Math.abs(y2 - y1);
+		
+		int distance = (int)Math.hypot(x1x2, y1y2);
+		
+		if(distance < 80)
+		{
+			collision = pixelCollisionCheck(g, g.getBounds(), getBounds());
+		}
+		
+		return collision;
+	}
+	
+	public boolean pixelCollisionCheck(GameObject other, Rectangle r1, Rectangle r2)
+	{
+		int topCornerX;
+		int bottomCornerX;
+		int topCornerY;
+		int bottomCornerY;
+		
+		topCornerY = (r1.y > r2.y) ? r1.y : r2.y;
+		bottomCornerY = ((r1.width + r1.x) > (r2.width + r2.x)) ? r1.x + r1.height : r2.x + r2.height;
+		
+		topCornerX = (r1.x > r2.x) ? r1.x : r2.x;
+		bottomCornerX = ((r1.width + r1.x) > (r1.width + r2.x)) ? r1.x + r1.height : r2.x + r2.height;
+		
+		int height = bottomCornerY - topCornerY;
+		int width = bottomCornerX - topCornerX;
+		
+		int[] pixels1 = new int[width * height];
+		int[] pixels2 = new int[width * height];
+		
+		PixelGrabber pg1 = new PixelGrabber(other.getSprite().getSprite(), topCornerX - (int)other.getX(), (int) topCornerY - (int) other.getY(), width, height, pixels1, 0, width);
+		PixelGrabber pg2 = new PixelGrabber(getSprite().getSprite(), topCornerX - (int) getX(), (int) topCornerY - (int) getY(), width, height, pixels2, 0, width);
+		
+		try
+		{
+			pg1.grabPixels();
+			pg2.grabPixels();
+		}
+		catch(InterruptedException ex)
+		{
+			System.err.println("Error in pixel collision check");
+			System.err.println("Cannot grab pixels");
+			System.err.println(ex.getMessage());
+		}
+		
+		image1 = new BufferedImage(pg1.getWidth(), pg1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		image1.setRGB(0, 0, pg1.getWidth(), pg1.getHeight(), pixels1, 0, pg1.getWidth());
+		
+		image2 = new BufferedImage(pg1.getWidth(), pg1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		image2.setRGB(0, 0, pg2.getWidth(), pg2.getHeight(), pixels2, 0, pg2.getWidth());
+		
+		for(int i = 0; i < pixels1.length; i++)
+		{
+			int t1 = (pixels1[i] >>> 24) & 0xFF;
+			int t2 = (pixels2[i] >>> 24) & 0xFF;
+			
+			if(t1 > 0 && t2 > 0)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public double getX()
+	{
+		return x;
+	}
+	
+	public double getY()
+	{
+		return y;
+	}
+	
+	public Sprite getSprite()
+	{
+		return sprite;
+	}
+	
+	public void setSprite(Sprite s)
+	{
+		sprite = s;
 	}
 }
