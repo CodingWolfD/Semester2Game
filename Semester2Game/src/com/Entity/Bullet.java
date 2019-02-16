@@ -15,7 +15,7 @@ public class Bullet extends GameObject
 			
 	public Bullet(String fileName)
 	{
-		super(fileName, tmm);
+		super(tmm);
 		
 		x = 0;
 		y = 0;

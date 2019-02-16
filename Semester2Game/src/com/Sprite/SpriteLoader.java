@@ -1,5 +1,6 @@
 package com.Sprite;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class SpriteLoader

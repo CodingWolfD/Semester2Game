@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.Sprite.Sprite;
 import com.Tilemap.Tile;
 import com.Tilemap.TileMapManager;
 
@@ -16,7 +17,7 @@ public class GameObject
 	protected double x;
 	protected double y;
 	
-	protected BufferedImage sprite;
+	protected BufferedImage bSprite;
 	protected Sprite sprite;
 	
 	protected static TileMapManager tmm;

@@ -4,6 +4,6 @@ public class Enemy extends GameObject
 {
 	public Enemy(String fileName) 
 	{
-		super(fileName, tmm);
+		super(tmm);
 	}
 }

@@ -13,7 +13,7 @@ public class Collectable extends GameObject
 		
 	public Collectable(String fileName)
 	{
-		super(fileName, tmm);
+		super(tmm);
 		
 		x = 200;
 		y = 10;

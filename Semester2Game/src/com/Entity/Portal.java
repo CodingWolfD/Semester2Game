@@ -7,7 +7,7 @@ public class Portal extends GameObject
 {
 	public Portal(String fileName)
 	{
-		super(fileName, tmm);
+		super(tmm);
 		
 		x = 896;
 		y = 512;
