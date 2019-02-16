@@ -69,7 +69,7 @@ public class Level2 extends LevelState
 		
 		if(keyCode == KeyEvent.VK_SPACE)
 		{
-			p.jump(true);
+			p.jump();
 		}
 		
 		if(keyCode == KeyEvent.VK_R)
@@ -92,7 +92,7 @@ public class Level2 extends LevelState
 		
 		if(keyCode == KeyEvent.VK_SPACE)
 		{
-			p.jump(false);
+			p.jump();
 		}
 		
 		if(keyCode == KeyEvent.VK_R)

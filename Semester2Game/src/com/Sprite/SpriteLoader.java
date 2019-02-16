@@ -3,6 +3,8 @@ package com.Sprite;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
 public class SpriteLoader
 {
 	private String spritePath = "/images";
@@ -15,7 +17,6 @@ public class SpriteLoader
 	public Sprite loadSprites(String url, int tileSize)
 	{
 		Sprite s = new Sprite(10);
-		
 		return s;
 	}
 	
@@ -29,9 +30,10 @@ public class SpriteLoader
 		
 		try
 		{
-			for(int i = 0; i < numberOfFrames; i++)
+			for(int i = 1; i < numberOfFrames; i++)
 			{
 				tempFName = spritePath + "/" + fileName + "_" + i + type;
+				bi = ImageIO.read(getClass().getResourceAsStream(tempFName));
 				s.addFrame(bi);
 			}
 		}
@@ -41,5 +43,7 @@ public class SpriteLoader
 			System.err.println("Error Loading Sprite Image");
 			ex.getMessage();
 		}
+		
+		return s;
 	}
 }

@@ -3,6 +3,8 @@ package com.Entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import com.Sprite.Sprite;
+
 public class Bullet extends GameObject
 {	
 	private double x;
@@ -13,9 +15,14 @@ public class Bullet extends GameObject
 	
 	private double speed;
 			
+	private	Sprite s;
+	
 	public Bullet(String fileName)
 	{
 		super(tmm);
+		
+		s = new Sprite(1);
+		s.addFrame("/images/" +fileName);
 		
 		x = 0;
 		y = 0;
@@ -64,7 +71,7 @@ public class Bullet extends GameObject
 	
 	public void draw(Graphics2D g)
 	{
-		g.drawImage(sprite, (int) x, (int) y, cWidth, cHeight, null);
+		g.drawImage(s.getSprite(), (int) x, (int) y, cWidth, cHeight, null);
 	}
 	
 	public void setX(double newX)

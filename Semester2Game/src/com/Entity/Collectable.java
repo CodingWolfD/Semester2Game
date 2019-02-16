@@ -2,6 +2,8 @@ package com.Entity;
 
 import java.awt.Graphics2D;
 
+import com.Sprite.Sprite;
+
 public class Collectable extends GameObject
 {
 	private double gravity;
@@ -10,10 +12,15 @@ public class Collectable extends GameObject
 	private double dx;
 	
 	private boolean FALLING;
+	
+	private Sprite s;
 		
 	public Collectable(String fileName)
 	{
 		super(tmm);
+
+		s = new Sprite(1);
+		s.addFrame("/images/" + fileName);
 		
 		x = 200;
 		y = 10;
@@ -88,6 +95,6 @@ public class Collectable extends GameObject
 	public void draw(Graphics2D g)
 	{
 		super.draw(g);
-		g.drawImage(sprite, (int) x, (int) y, cWidth, cHeight, null);
+		g.drawImage(s.getSprite(), (int) x, (int) y, cWidth, cHeight, null);
 	}
 }

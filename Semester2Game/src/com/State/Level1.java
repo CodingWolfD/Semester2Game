@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import com.Entity.Collectable;
 import com.Entity.Enemy;
+import com.Entity.GameObject;
 import com.Entity.Player;
 import com.Entity.Portal;
 import com.Main.LevelPanel;
@@ -20,7 +21,9 @@ public class Level1 extends LevelState
 	private Enemy[] enemies;
 	private Collectable[] collectables;
 	private TileMapManager tmm;
-		
+	
+	private GameObject go;
+			
 	public Level1(LevelManager lm)
 	{
 		super(lm);
@@ -28,11 +31,12 @@ public class Level1 extends LevelState
 	}
 	
 	private void init()
-	{		
+	{
 		tmm = new TileMapManager();
-		p = new Player("/images/player.png", tmm);
+		p = new Player("player.png", tmm);
+		go = new GameObject(tmm);
 				
-		portal = new Portal("/images/portal.png");
+		portal = new Portal("portal.png");
 		
 		initEnemies();
 		initCollectables();	
@@ -44,7 +48,7 @@ public class Level1 extends LevelState
 		
 		for(int i = 0; i < enemies.length; i++)
 		{
-			enemies[i] = new Enemy("/images/enemy.png");
+			enemies[i] = new Enemy("enemy.png");
 		}
 	}
 	
@@ -54,7 +58,7 @@ public class Level1 extends LevelState
 		
 		for(int i = 0; i < collectables.length; i++)
 		{
-			collectables[i] = new Collectable("/images/collectable.png");
+			collectables[i] = new Collectable("collectable.png");
 		}
 	}
 	
@@ -72,7 +76,7 @@ public class Level1 extends LevelState
 		
 		if(keyCode == KeyEvent.VK_SPACE)
 		{
-			p.jump(true);
+			p.jump();
 		}
 		
 		if(keyCode == KeyEvent.VK_R)
@@ -95,7 +99,7 @@ public class Level1 extends LevelState
 		
 		if(keyCode == KeyEvent.VK_SPACE)
 		{
-			p.jump(false);
+			p.jump();
 		}
 		
 		if(keyCode == KeyEvent.VK_R)
@@ -145,7 +149,7 @@ public class Level1 extends LevelState
 	    
 		tmm.draw(g);
 		p.draw(g);
-		portal.draw(g);
+		go.draw(g);
 		
 		//enemies[0].draw(g);
 		collectables[0].draw(g);
