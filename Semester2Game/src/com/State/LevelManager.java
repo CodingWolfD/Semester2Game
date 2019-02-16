@@ -20,7 +20,7 @@ public class LevelManager
 		
 		gameStateList[0] = new Menu(this);
 		gameStateList[1] = new Level1(this);
-		gameStateList[2] = new Level2(this);
+		//gameStateList[2] = new Level2(this);
 	}
 	
 	public void setCurrentState(int state)

@@ -11,12 +11,14 @@ import javax.imageio.ImageIO;
 import com.Tilemap.Tile;
 import com.Tilemap.TileMapManager;
 
+import com.Sprite.*;
+
 public class GameObject 
 {
 	protected double x;
 	protected double y;
 	
-	protected BufferedImage sprite;
+	//protected BufferedImage sprite;
 	protected Sprite sprite;
 	
 	protected static TileMapManager tmm;
@@ -31,7 +33,7 @@ public class GameObject
 	
 	private BufferedImage image1 = null;
 	private BufferedImage image2 = null;
-	
+		
 	public GameObject(TileMapManager tmm)
 	{
 		this.tmm = tmm;
@@ -52,25 +54,29 @@ public class GameObject
 		currXpos = x;
 		currYpos = y;
 		tile = tmm.getTileAt(currXpos, currYpos);
+		
 		cTopLeft = tile.getType() == Tile.TYPE_BLOCKED;
 		
 		// TOP RIGHT
 		currYpos = y;
 		currXpos = x + cWidth;
 		tile = tmm.getTileAt(currXpos, currYpos);
-		cTopRight = tile.getType() == Tile.TYPE_BLOCKED;
 		
-		// BOTTOM LEFT
-		currXpos = x;
-		currYpos = y + cHeight;
-		tile = tmm.getTileAt(currXpos, currYpos);
-		cBottomLeft = tile.getType() == Tile.TYPE_BLOCKED;
+		cTopRight = tile.getType() == Tile.TYPE_BLOCKED;
 		
 		// BOTTOM RIGHT
 		currXpos = x + cWidth;
 		currYpos = y + cHeight;
 		tile = tmm.getTileAt(currXpos, currYpos);
+		
 		cBottomRight = tile.getType() == Tile.TYPE_BLOCKED;
+		
+		// BOTTOM LEFT
+		currXpos = x;
+		currYpos = y + cHeight;
+		tile = tmm.getTileAt(currXpos, currYpos);
+		
+		cBottomLeft = tile.getType() == Tile.TYPE_BLOCKED;
 	}
 	
 	public boolean intersects(GameObject obj)
@@ -81,21 +87,6 @@ public class GameObject
 		return r1.intersects(r2);
 	}
 	
-	private void loadSprite(String fileName)
-	{
-		try
-		{
-			sprite = ImageIO.read(getClass().getResourceAsStream(fileName));
-		}
-		catch(IOException ex)
-		{
-			System.err.println("Error: Unable to load Game Object sprite");
-		}
-		
-		cWidth = sprite.getWidth();
-		cHeight = sprite.getHeight();
-	}
-	
 	public Rectangle getBounds()
 	{
 		return new Rectangle((int) x, (int) y, cWidth, cHeight);
@@ -103,11 +94,15 @@ public class GameObject
 	
 	public void draw(Graphics2D g)
 	{
-		g.drawImage(sprite, (int) x, (int) y, null);
+		if(sprite != null)
+		{
+			g.drawImage(sprite.getSprite(), (int)(x + tmm.getCameraX()), (int)(y + tmm.getCameraY()), null);
+		}
 	}
 	
 	public boolean collidesWith(GameObject g)
 	{
+		boolean collision = false;
 		int x1, y1;
 		int x2, y2;
 		

@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.Main.LevelPanel;
+import com.Sprite.Sprite;
 
 public class Menu extends LevelState
 {		
@@ -31,8 +32,8 @@ public class Menu extends LevelState
 	{
 		try
 		{
-			titleImage = ImageIO.read(getClass().getResourceAsStream("/images/User_Interface/Bob's_Journey_Title.png"));
-			backgroundImage = ImageIO.read(getClass().getResourceAsStream("/images/User_Interface/Menu_Screen.png"));
+			titleImage = ImageIO.read(getClass().getResourceAsStream("/images/Bob's_Journey_Title.png"));
+			backgroundImage = ImageIO.read(getClass().getResourceAsStream("/images/Menu_Screen.png"));
 		}
 		catch(IOException e)
 		{

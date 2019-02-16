@@ -2,6 +2,8 @@ package com.Entity;
 
 import java.awt.Graphics2D;
 
+import com.Sprite.Sprite;
+import com.Sprite.SpriteLoader;
 import com.Tilemap.TileMapManager;
 
 public class Player extends GameObject
@@ -35,6 +37,7 @@ public class Player extends GameObject
 	public Player(String spriteFile, TileMapManager tm)
 	{
 		super(tm);	
+		
 		tmm = tm;
 		
 		x = 100;
@@ -56,9 +59,16 @@ public class Player extends GameObject
 	{
 		double checkX;
 		double checkY;
+		double tempX;
+		double tempY;
 		
 		checkX = x + dx;
 		checkY = y + dy;
+		
+		tempX = x;
+		tempY = y;
+		
+		checkTileMapCollision(checkX, checkY);
 		
 		if(FALLING)
 		{
@@ -72,26 +82,45 @@ public class Player extends GameObject
 		x = checkX;
 		y = checkY;
 	
-		checkTileMapCollision(checkX, checkY);
-		
-		if(cTopLeft && cBottomLeft)
+		if(dx < 0)
 		{
-			checkX = x;
+			if(cTopLeft || cBottomLeft)
+			{
+				tempX = x;
+			}
+			else
+			{
+				tempX += dx;
+			}
 		}
 		
-		if(cBottomRight && cTopRight)
+		if(dx > 0)
 		{
-			checkX = x;
+			if(cTopRight || cBottomRight)
+			{
+				tempX = x;
+			}
+			else
+			{
+				tempX += dx;
+			}
 		}
 		
-		if(cTopRight || cTopLeft)
+		if(dy < 0)
 		{
-			checkY = y;
+			if(cTopRight || cTopLeft)
+			{
+				tempY = y;
+			}
+			else
+			{
+				tempY += dy;
+			}
 		}
 		
 		if(cBottomLeft || cBottomRight)
 		{
-			checkY = y;
+			tempY = y;
 			FALLING = false;
 		}
 		else
@@ -99,28 +128,25 @@ public class Player extends GameObject
 			FALLING = true;
 		}
 		
+		if(JUMPING)
+		{
+			tempY -= 25;
+			JUMPING = false;
+		}
+		else if(countDown > 0)
+		{
+			tempY -= 25;
+			countDown--;
+		}
+		
 		if(FALLING)
-		{   
-			gravity = 2f;
+		{
+			gravity = 1.5f;
 		}
 		else
 		{
 			gravity = 0;
 		}
-		
-		if(JUMPING && !FALLING)
-		{
-			gravity -= 100;
-		}
-		else
-		{
-			FALLING = true;
-		}
-		
-		x = checkX;
-		y = checkY;
-		
-		y += gravity;
 		
 		if(SHOOT)
 		{
@@ -129,6 +155,11 @@ public class Player extends GameObject
 				bullets[i].update();
 			}
 		}
+		
+		x = tempX;
+		y = tempY;
+		
+		y += gravity;
 	}
 	
 	@Override
@@ -157,12 +188,8 @@ public class Player extends GameObject
 		else
 		{
 			STANDING = true;
+			MOVE_LEFT = false;
 			dx = 0;
-		}
-		
-		if(dx < -xSpeed)
-		{
-			dx = -xSpeed;
 		}
 	}
 	
@@ -171,16 +198,12 @@ public class Player extends GameObject
 		if(move)
 		{
 			MOVE_RIGHT = true;
-			dx += xSpeed;
-			
-			if(dx > xSpeed)
-			{
-				dx = xSpeed;
-			}
+			dx = xSpeed;
 		}
 		else
 		{
 			STANDING = true;
+			MOVE_RIGHT = false;
 			dx = 0;
 		}
 	}
@@ -204,15 +227,12 @@ public class Player extends GameObject
 		}
 	}
 	
-	public void jump(boolean jump)
+	public void jump()
 	{
-		if(jump)
+		if(FALLING == false)
 		{
 			JUMPING = true;
-   		}
-		else
-		{
-			JUMPING = false;
+			countDown = 5;
 		}
 	}
 	
@@ -245,6 +265,11 @@ public class Player extends GameObject
 	public int getAmmoCount()
 	{
 		return ammoCount;
+	}
+	
+	public void setHealth(int health)
+	{
+		this.health = health;
 	}
 	
 	public int getHealth()
