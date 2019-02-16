@@ -34,9 +34,14 @@ public class Player extends GameObject
 	
 	private Bullet[] bullets;
 	
+	private Sprite s;
+	
 	public Player(String spriteFile, TileMapManager tm)
 	{
 		super(tm);	
+		
+		s = new Sprite(1);
+		s.addFrame("/images/player.png");
 		
 		tmm = tm;
 		
@@ -175,7 +180,7 @@ public class Player extends GameObject
 			}
 		}
 		
-		g.drawImage(sprite, (int)(x + tmm.getCameraX()), (int) (y + tmm.getCameraY()), cWidth, cHeight, null);
+		g.drawImage(s.getSprite(), (int)(x + tmm.getCameraX()), (int) (y + tmm.getCameraY()), cWidth, cHeight, null);
 	}
 	
 	public void moveLeft(boolean move)
