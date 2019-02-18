@@ -22,7 +22,8 @@ public class Bullet extends GameObject
 		super(tmm);
 		
 		s = new Sprite(1);
-		s.addFrame("/images/" +fileName);
+		s.addFrame("/images/bullet.png");
+		this.setSprite(s);
 		
 		x = 0;
 		y = 0;

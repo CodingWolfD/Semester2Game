@@ -15,12 +15,13 @@ public class Collectable extends GameObject
 	
 	private Sprite s;
 		
-	public Collectable(String fileName)
+	public Collectable()
 	{
 		super(tmm);
 
 		s = new Sprite(1);
-		s.addFrame("/images/" + fileName);
+		s.addFrame("/images/collectable.png");
+		setSprite(s);
 		
 		x = 200;
 		y = 10;

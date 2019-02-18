@@ -14,7 +14,8 @@ public class Portal extends GameObject
 		super(tmm);
 	
 		s = new Sprite(1);
-		s.addFrame("/images/" + fileName);
+		s.addFrame("/images/portal.png");
+		setSprite(s);
 
 		x = 896;
 		y = 512;

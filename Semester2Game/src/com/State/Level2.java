@@ -28,7 +28,7 @@ public class Level2 extends LevelState
 	private void init()
 	{		
 		tmm = new TileMapManager();
-		p = new Player("/images/player.png", tmm);
+		p = new Player(tmm);
 		win = false;
 				
 		initEnemies();
@@ -41,7 +41,7 @@ public class Level2 extends LevelState
 		
 		for(int i = 0; i < enemies.length; i++)
 		{
-			enemies[i] = new Enemy("/images/enemy.png");
+			enemies[i] = new Enemy();
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class Level2 extends LevelState
 		
 		for(int i = 0; i < collectables.length; i++)
 		{
-			collectables[i] = new Collectable("/images/collectable.png");
+			collectables[i] = new Collectable();
 		}
 	}
 	

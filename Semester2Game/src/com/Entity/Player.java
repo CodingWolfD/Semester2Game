@@ -36,13 +36,14 @@ public class Player extends GameObject
 	
 	private Sprite s;
 	
-	public Player(String spriteFile, TileMapManager tm)
+	public Player(TileMapManager tm)
 	{
 		super(tm);	
 		
 		s = new Sprite(1);
+
 		s.addFrame("/images/player.png");
-		
+		this.setSprite(s);				
 		tmm = tm;
 		
 		x = 100;
@@ -171,7 +172,7 @@ public class Player extends GameObject
 	public void draw(Graphics2D g)
 	{
 		super.draw(g);
-		
+				
 		if(SHOOT)
 		{
 			for(int i = 0; i < bullets.length; i++)
@@ -217,11 +218,10 @@ public class Player extends GameObject
 	{		
 		if(shoot)
 		{
-			if(ammoCount > 0)
+			if(ammoCount != 0)
 			{
 				for(int i = 0; i < ammoCount; i++)
 				{
-					bullets[i] = new Bullet("/images/bullet.png");
 					bullets[i].setX(x);
 					bullets[i].setY(y + cHeight / 2);
 				}

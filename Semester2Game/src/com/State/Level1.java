@@ -33,7 +33,7 @@ public class Level1 extends LevelState
 	private void init()
 	{
 		tmm = new TileMapManager();
-		p = new Player("player.png", tmm);
+		p = new Player(tmm);
 		go = new GameObject(tmm);
 				
 		portal = new Portal("portal.png");
@@ -48,7 +48,7 @@ public class Level1 extends LevelState
 		
 		for(int i = 0; i < enemies.length; i++)
 		{
-			enemies[i] = new Enemy("enemy.png");
+			enemies[i] = new Enemy();
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class Level1 extends LevelState
 		
 		for(int i = 0; i < collectables.length; i++)
 		{
-			collectables[i] = new Collectable("collectable.png");
+			collectables[i] = new Collectable();
 		}
 	}
 	
@@ -123,10 +123,9 @@ public class Level1 extends LevelState
 //			enemies[i].update();
 //		}
 //				
-		p.checkEnemyCollision(enemies);
 		p.checkCollectableCollision(collectables);
 		
-		if(p.intersects(portal))
+		if(p.collidesWith(portal))
 		{
 			lm.setCurrentState(2);
 		}
@@ -149,9 +148,10 @@ public class Level1 extends LevelState
 	    
 		tmm.draw(g);
 		p.draw(g);
-		go.draw(g);
+		portal.draw(g);
+		collectables[0].draw(g);
 		
 		//enemies[0].draw(g);
-		collectables[0].draw(g);
+
 	}
 }
